@@ -1,0 +1,35 @@
+name: Générer le mot du jour
+
+on:
+  schedule:
+    # Tous les jours à 00h05 UTC (soit 01h05 ou 02h05 heure française
+    # selon l'heure d'été/hiver). Le format est celui de cron : minute
+    # heure jour mois jour-de-la-semaine.
+    - cron: "5 0 * * *"
+  workflow_dispatch: {} # bouton "Run workflow" dans l'onglet Actions, pour tester manuellement
+
+permissions:
+  contents: write # nécessaire pour que le workflow puisse commit/push
+
+jobs:
+  generer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Générer le mot du jour
+        run: python scripts/generer_mot_du_jour.py
+
+      - name: Publier le nouveau fichier
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/mots/ data/historique.json
+          git diff --quiet --cached || git commit -m "Mot du jour automatique"
+          git push
