@@ -1,5 +1,3 @@
-// jeu.js — logique de la page jouer.html
-
 import { proposerMot } from './donnees-jeu.js';
 
 const formulaire = document.getElementById('formulaire-essai');
@@ -7,14 +5,14 @@ const champMot = document.getElementById('champ-mot');
 const message = document.getElementById('message-jeu');
 const listeEssais = document.getElementById('liste-essais');
 
-const essaisJoues = new Map(); // mot -> résultat
+const essaisJoues = new Map();
 let partieTrouvee = false;
 
 function categorie(rang, trouve) {
     if (trouve) return 'trouve';
     if (rang !== null && rang <= 10) return 'chaud';
     if (rang !== null && rang <= 100) return 'tiede';
-    return null; // froid = style par défaut, pas de modificateur de classe
+    return null;
 }
 
 function pourcentage(rang, trouve) {
@@ -38,7 +36,7 @@ function creerLigne({ mot, rang, trouve }) {
 
     const spanRang = document.createElement('span');
     spanRang.className = 'demo-rang';
-    spanRang.textContent = trouve ? '🏆' : (rang !== null ? `${rang}ᵉ` : '—');
+    spanRang.textContent = trouve ? 'Gagné!' : (rang !== null ? `${rang}ᵉ` : '—');
 
     const spanMot = document.createElement('span');
     spanMot.className = 'demo-mot';
