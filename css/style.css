@@ -1,3 +1,8 @@
+/* ==========================================================================
+   LE MOT DU JOUR — feuille de style
+   Palette : ivoire chaud, vert forêt profond, filet or
+   ========================================================================== */
+
 :root {
     --ivoire:        #f7f2e6;
     --ivoire-carte:  #fbf8f0;
@@ -7,6 +12,7 @@
     --or:            #b3892f;
     --or-clair:      #d9b969;
     --ombre:         rgba(34, 48, 28, 0.25);
+
     --police-signature: 'Great Vibes', cursive;
     --police-titre:      'Cormorant Garamond', serif;
     --police-texte:      'Poppins', sans-serif;
@@ -33,6 +39,7 @@ body {
     flex-direction: column;
 }
 
+/* ---------- En-tête ---------- */
 .entete {
     position: relative;
     z-index: 10;
@@ -87,6 +94,7 @@ body {
     margin-top: 0.6rem;
 }
 
+/* ---------- Démo : aperçu d'une partie ---------- */
 .demo {
     position: relative;
     z-index: 10;
@@ -203,6 +211,7 @@ body {
     }
 }
 
+/* ---------- Pages secondaires (règles, etc.) ---------- */
 .fil-ariane {
     font-family: var(--police-texte);
     font-size: 0.7rem;
@@ -304,6 +313,7 @@ body {
     animation: none;
 }
 
+/* ---------- Page de jeu ---------- */
 .contenu-jeu {
     flex: 1;
     width: 100%;
@@ -390,6 +400,77 @@ body {
     padding: 0.6rem 0;
 }
 
+/* ---------- Page archives ---------- */
+.contenu-archives {
+    flex: 1;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 4rem;
+}
+
+.tableau-archives {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableau-archives thead th {
+    font-family: var(--police-texte);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--or);
+    text-align: left;
+    padding: 0 0.5rem 0.7rem;
+    border-bottom: 1px solid var(--or);
+}
+
+.tableau-archives thead th:last-child,
+.tableau-archives tbody .archive-mot {
+    text-align: right;
+}
+
+.tableau-archives tbody tr {
+    border-bottom: 1px solid rgba(46, 65, 38, 0.15);
+    transition: background-color 0.2s ease;
+}
+
+.tableau-archives tbody tr:hover {
+    background-color: rgba(179, 137, 47, 0.08);
+}
+
+.tableau-archives td {
+    padding: 0.85rem 0.5rem;
+}
+
+.archive-date {
+    font-family: var(--police-texte);
+    font-size: 0.82rem;
+    color: var(--vert-encre);
+    opacity: 0.6;
+    letter-spacing: 0.03em;
+}
+
+.archive-mot {
+    font-family: var(--police-titre);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--vert-fonce);
+    text-transform: lowercase;
+}
+
+.message-vide {
+    text-align: center;
+    font-family: var(--police-titre);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--vert-encre);
+    opacity: 0.6;
+    padding: 2rem 0;
+}
+
+/* ---------- Scène principale ---------- */
 .scene {
     position: relative;
     flex: 1;
@@ -427,6 +508,7 @@ body {
     max-width: 980px;
 }
 
+/* ---------- Cartes ---------- */
 .carte {
     flex: 1;
     text-decoration: none;
@@ -503,6 +585,7 @@ body {
     box-shadow: 0 0 8px rgba(217, 185, 105, 0.6);
 }
 
+/* La carte centrale porte davantage de poids visuel */
 .carte--principale {
     flex: 1.15;
 }
@@ -532,6 +615,7 @@ body {
     .carte-cadre, .carte--principale .carte-cadre { min-height: 190px; }
 }
 
+/* ---------- Pied de page ---------- */
 .pied {
     position: relative;
     z-index: 10;
@@ -557,6 +641,7 @@ body {
     border-color: var(--or);
 }
 
+/* ---------- Accessibilité : réduction de mouvement ---------- */
 @media (prefers-reduced-motion: reduce) {
     .halo,
     .carte--principale .carte-gemme {

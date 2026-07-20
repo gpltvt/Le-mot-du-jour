@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Les mots précédents — Le Mot du Jour</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="page">
+
+        <header class="entete entete--secondaire">
+            <p class="fil-ariane"><a href="index.html">Accueil</a> / Mots précédents</p>
+            <h1>Les mots précédents</h1>
+            <div class="entete-separateur" aria-hidden="true"></div>
+            <p class="entete-baseline">Un carnet des mots déjà trouvés, jour après jour.</p>
+        </header>
+
+        <main class="contenu-archives">
+
+            <table class="tableau-archives">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Mot</th>
+                    </tr>
+                </thead>
+                <tbody id="corps-archives"></tbody>
+            </table>
+
+            <p id="message-vide" class="message-vide" hidden>Aucun mot précédent pour l'instant.</p>
+
+        </main>
+
+        <footer class="pied">
+            <a href="index.html">Accueil</a>
+        </footer>
+
+    </div>
+
+    <script type="module" src="js/archives.js"></script>
+
+</body>
+</html>
