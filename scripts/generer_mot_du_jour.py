@@ -27,7 +27,7 @@ DOSSIER_MOTS = RACINE / "data" / "mots"
 
 
 def charger_json(chemin: Path, valeur_par_defaut):
-    if chemin.exists():
+    if chemin.exists() and chemin.stat().st_size > 0:
         with open(chemin, "r", encoding="utf-8") as fichier:
             return json.load(fichier)
     return valeur_par_defaut
