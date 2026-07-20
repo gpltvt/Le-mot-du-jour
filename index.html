@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Le Mot du Jour</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="page">
+
+        <header class="entete">
+            <p class="entete-signature">Made by G. Plaetevoet</p>
+            <h1>Le mot du jour</h1>
+            <div class="entete-separateur" aria-hidden="true"></div>
+            <p class="entete-baseline">Un mot caché, une intuition à affiner, une réponse par jour.</p>
+        </header>
+
+        <section class="demo" aria-hidden="true">
+            <p class="demo-etiquette">Un aperçu d'une partie</p>
+            <div class="demo-carte">
+                <div class="demo-ligne">
+                    <span class="demo-rang">1234<sup>e</sup></span>
+                    <span class="demo-mot">jardin</span>
+                    <span class="demo-jauge"><span class="demo-jauge-remplissage" style="--valeur: 8%"></span></span>
+                    <span class="demo-froid">froid</span>
+                </div>
+                <div class="demo-ligne demo-ligne--tiede">
+                    <span class="demo-rang">58<sup>e</sup></span>
+                    <span class="demo-mot">pétale</span>
+                    <span class="demo-jauge"><span class="demo-jauge-remplissage" style="--valeur: 58%"></span></span>
+                    <span class="demo-froid">tiède</span>
+                </div>
+                <div class="demo-ligne demo-ligne--chaud">
+                    <span class="demo-rang">3<sup>e</sup></span>
+                    <span class="demo-mot">fleur</span>
+                    <span class="demo-jauge"><span class="demo-jauge-remplissage" style="--valeur: 88%"></span></span>
+                    <span class="demo-froid">chaud</span>
+                </div>
+                <div class="demo-ligne demo-ligne--trouve">
+                    <span class="demo-rang">🏆</span>
+                    <span class="demo-mot">tulipe</span>
+                    <span class="demo-jauge"><span class="demo-jauge-remplissage" style="--valeur: 100%"></span></span>
+                    <span class="demo-froid">trouvé</span>
+                </div>
+            </div>
+        </section>
+
+        <main class="scene">
+
+            <div class="halo" aria-hidden="true"></div>
+
+            <div class="rangee-cartes">
+
+                <a href="jouer.html" class="carte carte--action">
+                    <div class="carte-cadre">
+                        <span class="carte-gemme"></span>
+                        <h2>Lancer<br>une partie</h2>
+                        <p class="carte-note">Mot du <span id="date-du-jour">--/--/--</span></p>
+                    </div>
+                </a>
+
+                <a href="regles.html" class="carte carte--action carte--principale">
+                    <div class="carte-cadre">
+                        <span class="carte-gemme"></span>
+                        <h2>Les règles<br>du jeu</h2>
+                        <p class="carte-note">Comprendre la mécanique</p>
+                    </div>
+                </a>
+
+                <a href="archives.html" class="carte carte--action">
+                    <div class="carte-cadre">
+                        <span class="carte-gemme"></span>
+                        <h2>Le mot<br>d'hier</h2>
+                        <p class="carte-note">Revoir la solution</p>
+                    </div>
+                </a>
+
+            </div>
+
+        </main>
+
+        <footer class="pied">
+            <a href="#">Mentions légales</a>
+        </footer>
+
+    </div>
+
+    <script>
+        const dateEl = document.getElementById('date-du-jour');
+        if (dateEl) {
+            const aujourdhui = new Date();
+            const jj = String(aujourdhui.getDate()).padStart(2, '0');
+            const mm = String(aujourdhui.getMonth() + 1).padStart(2, '0');
+            const aa = String(aujourdhui.getFullYear()).slice(-2);
+            dateEl.textContent = `${jj}/${mm}/${aa}`;
+        }
+    </script>
+
+</body>
+</html>

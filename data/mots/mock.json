@@ -1,0 +1,28 @@
+{
+    "motCible": "tulipe",
+    "classement": {
+        "bulbe": 4,
+        "fleur": 3,
+        "rose": 5,
+        "jonquille": 7,
+        "hollande": 12,
+        "pivoine": 9,
+        "bouquet": 22,
+        "pétale": 58,
+        "vase": 74,
+        "printemps": 91,
+        "pollen": 130,
+        "abeille": 210,
+        "parterre": 250,
+        "serre": 340,
+        "botanique": 480,
+        "couleur": 900,
+        "jardin": 1234,
+        "nature": 1600,
+        "arbre": 2100,
+        "vert": 3000,
+        "maison": 4200,
+        "voiture": 4800,
+        "ordinateur": 5000
+    }
+}
