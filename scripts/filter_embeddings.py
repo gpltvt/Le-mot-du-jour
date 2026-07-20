@@ -1,12 +1,13 @@
 """
-filtrer_embeddings.py — À LANCER UNE SEULE FOIS, EN LOCAL (pas dans GitHub Actions)
+filter_embeddings.py — À LANCER UNE SEULE FOIS, EN LOCAL (pas dans GitHub Actions)
 
-Ce script prend le fichier officiel de vecteurs français fastText et n'en garde que les mots qui nous
-intéressent, pour produire un petit fichier qu'on committe
+Ce script prend le fichier officiel de vecteurs français fastText (plusieurs
+Go, impossible à stocker sur GitHub) et n'en garde que les mots qui nous
+intéressent, pour produire un petit fichier (quelques Mo) qu'on committe
 dans le dépôt. C'est ce petit fichier que le workflow GitHub Actions utilisera
-ensuite chaque jour.
+ensuite chaque jour, sans jamais retélécharger le gros fichier original.
 
-ÉTAPES:
+ÉTAPES (à faire une fois sur ton ordinateur) :
 
 1. Télécharge les vecteurs français officiels (~1,3 Go compressé) :
    https://fasttext.cc/docs/en/crawl-vectors.html
@@ -20,7 +21,7 @@ ensuite chaque jour.
    mots suffisent, pas besoin des 2 millions du fichier original).
 
 4. Lance :
-   python filtrer_embeddings.py chemin/vers/cc.fr.300.vec
+   python filter_embeddings.py chemin/vers/cc.fr.300.vec
 
 5. Le script produit data/mots-source/vocabulaire.json — committe-le dans
    le dépôt Git. C'est fait, tu n'auras plus jamais besoin de refaire cette
@@ -31,6 +32,8 @@ import json
 import sys
 from pathlib import Path
 
+# TODO : remplace par ta vraie liste de mots (idéalement quelques milliers,
+# noms communs concrets pour un jeu agréable à jouer). Exemple minimal :
 MOTS_A_GARDER = {
     "abeille", "abricot", "acteur", "aigle", "aiguille", "ail", "air", "anniversaire",
     "appartement", "araignée", "arbre", "argent", "armoire", "assiette", "automne",
@@ -80,6 +83,7 @@ MOTS_A_GARDER = {
     "œuf",
 }
 
+
 def filtrer(chemin_vecteurs_bruts: str, chemin_sortie: str) -> None:
     vecteurs = {}
     with open(chemin_vecteurs_bruts, "r", encoding="utf-8") as fichier:
@@ -103,6 +107,6 @@ def filtrer(chemin_vecteurs_bruts: str, chemin_sortie: str) -> None:
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage : python filtrer_embeddings.py chemin/vers/cc.fr.300.vec")
+        print("Usage : python filter_embeddings.py chemin/vers/cc.fr.300.vec")
         sys.exit(1)
     filtrer(sys.argv[1], "data/mots-source/vocabulaire.json")
