@@ -1,5 +1,3 @@
-// archives.js — logique de la page archives.html
-
 import { getMotsPrecedents } from './donnees-jeu.js';
 
 const corps = document.getElementById('corps-archives');

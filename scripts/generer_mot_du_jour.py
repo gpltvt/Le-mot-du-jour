@@ -1,22 +1,3 @@
-"""
-generer_mot_du_jour.py — exécuté chaque jour par le workflow GitHub Actions
-(.github/workflows/mot-du-jour.yml). Peut aussi être lancé à la main pour
-tester en local : `python scripts/generer_mot_du_jour.py`
-
-Ce que fait ce script :
-1. Charge le vocabulaire et ses vecteurs (data/mots-source/vocabulaire.json).
-2. Choisit le mot du jour de façon déterministe à partir de la date, en
-   excluant tous les mots déjà utilisés les jours précédents (déduits des
-   fichiers data/mots/*.json existants) pour ne jamais se répéter.
-3. Calcule la similarité cosinus entre le mot choisi et tous les autres
-   mots du vocabulaire, puis en déduit un classement (rang 1 = le plus
-   proche).
-4. Écrit data/mots/AAAA-MM-JJ.json (le format attendu par js/donnees-jeu.js).
-5. Publie dans data/historique.json le mot d'HIER (jamais celui du jour même
-   qui est encore en cours de partie) — c'est ce qui empêche archives.html
-   de révéler la réponse du jour en cours.
-"""
-
 import json
 import math
 from datetime import date, timedelta, timezone, datetime
@@ -45,8 +26,6 @@ def similarite_cosinus(vecteur_a, vecteur_b) -> float:
 
 
 def mots_deja_generes() -> set:
-    """Scanne data/mots/*.json (tous les jours déjà générés, y compris
-    aujourd'hui s'il existe déjà) pour ne jamais reproposer un mot cible."""
     deja = set()
     if DOSSIER_MOTS.exists():
         for fichier in DOSSIER_MOTS.glob("*.json"):
@@ -87,14 +66,12 @@ def generer_classement(vocabulaire: dict, mot_cible: str) -> dict:
 
 
 def publier_mot_de_la_veille(aujourdhui: date) -> None:
-    """Ajoute à l'historique le mot d'hier (jamais celui du jour même),
-    une fois que sa journée est terminée."""
     hier = aujourdhui - timedelta(days=1)
     hier_iso = hier.isoformat()
 
     chemin_hier = DOSSIER_MOTS / f"{hier_iso}.json"
     if not chemin_hier.exists():
-        return  # rien à publier (par ex. tout premier jour du site)
+        return
 
     historique = charger_json(CHEMIN_HISTORIQUE, [])
     deja_publie = any(entree["date"] == hier_iso for entree in historique)
@@ -111,7 +88,6 @@ def publier_mot_de_la_veille(aujourdhui: date) -> None:
         json.dump(historique, fichier, ensure_ascii=False, indent=2)
 
     print(f"Historique mis à jour avec le mot du {hier_iso} : {mot_hier}")
-
 
 def main():
     aujourdhui = datetime.now(timezone.utc).date()
@@ -135,8 +111,6 @@ def main():
     else:
         print(f"{chemin_du_jour} existe déjà, rien à régénérer.")
 
-    # Que le mot du jour vienne d'être généré ou existait déjà, on en profite
-    # pour vérifier si le mot d'hier peut être publié dans l'historique.
     publier_mot_de_la_veille(aujourdhui)
 
 

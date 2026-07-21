@@ -2,14 +2,11 @@ name: Générer le mot du jour
 
 on:
   schedule:
-    # Tous les jours à 00h05 UTC (soit 01h05 ou 02h05 heure française
-    # selon l'heure d'été/hiver). Le format est celui de cron : minute
-    # heure jour mois jour-de-la-semaine.
     - cron: "5 0 * * *"
-  workflow_dispatch: {} # bouton "Run workflow" dans l'onglet Actions, pour tester manuellement
+  workflow_dispatch: {}
 
 permissions:
-  contents: write # nécessaire pour que le workflow puisse commit/push
+  contents: write
 
 jobs:
   generer:

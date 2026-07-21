@@ -1,5 +1,3 @@
-// jeu.js — logique de la page jouer.html
-
 import { proposerMot, getMotDuJour, dateDuJourISO } from './donnees-jeu.js';
 
 const formulaire = document.getElementById('formulaire-essai');
@@ -13,12 +11,6 @@ const cleStockageAujourdhui = PREFIXE_STOCKAGE + dateDuJourISO();
 const essaisJoues = new Map(); // mot -> résultat
 let partieTrouvee = false;
 
-// ---------- Sauvegarde locale (survit à un rafraîchissement de page) ----------
-
-// Empreinte simple du contenu du mot du jour : permet de détecter si les
-// essais sauvegardés correspondent à un mot du jour différent de celui
-// actuellement chargé (ex. bascule du mock vers le vrai fichier du jour),
-// et dans ce cas d'ignorer la sauvegarde périmée plutôt que de la restaurer.
 function signatureDuJour(donneesMotDuJour) {
     const chaine = JSON.stringify(donneesMotDuJour);
     let hash = 0;
@@ -36,7 +28,6 @@ async function sauvegarderEssais() {
             essais: [...essaisJoues.values()],
         }));
     } catch (erreur) {
-        // navigation privée, quota plein, etc. : on continue sans bloquer le jeu
         console.warn("Sauvegarde locale impossible :", erreur);
     }
 }
@@ -47,7 +38,6 @@ function nettoyerAnciennesSauvegardes() {
             .filter((cle) => cle.startsWith(PREFIXE_STOCKAGE) && cle !== cleStockageAujourdhui)
             .forEach((cle) => localStorage.removeItem(cle));
     } catch {
-        // rien de grave si on ne peut pas nettoyer
     }
 }
 
@@ -71,7 +61,6 @@ async function restaurerEssais() {
     try {
         const motDuJourActuel = await getMotDuJour();
         if (signatureDuJour(motDuJourActuel) !== donneesSauvegardees.signature) {
-            // Le mot du jour a changé depuis cette sauvegarde : elle est périmée.
             try { localStorage.removeItem(cleStockageAujourdhui); } catch { /* tant pis */ }
             return;
         }
@@ -93,13 +82,11 @@ async function restaurerEssais() {
     }
 }
 
-// ---------- Affichage ----------
-
 function categorie(rang, trouve) {
     if (trouve) return 'trouve';
     if (rang !== null && rang <= 10) return 'chaud';
     if (rang !== null && rang <= 100) return 'tiede';
-    return null; // froid = style par défaut, pas de modificateur de classe
+    return null;
 }
 
 function pourcentage(rang, trouve) {
