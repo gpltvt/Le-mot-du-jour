@@ -388,6 +388,11 @@ body {
     min-height: 90px;
 }
 
+.liste-essais .demo-ligne {
+    opacity: 1;
+    animation: none;
+}
+
 .liste-essais:empty::before {
     content: "Vos essais apparaîtront ici.";
     display: block;
