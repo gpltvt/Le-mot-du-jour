@@ -123,7 +123,7 @@ function creerLigne({ mot, rang, trouve }) {
 
     const spanRang = document.createElement('span');
     spanRang.className = 'demo-rang';
-    spanRang.textContent = trouve ? '🏆' : (rang !== null ? `${rang}ᵉ` : '—');
+    spanRang.textContent = trouve ? 'Gagné!' : (rang !== null ? `${rang}ᵉ` : '—');
 
     const spanMot = document.createElement('span');
     spanMot.className = 'demo-mot';
