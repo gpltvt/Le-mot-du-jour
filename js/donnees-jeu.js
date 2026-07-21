@@ -11,7 +11,7 @@
 
 const CHEMIN_MOCK = 'data/mots/mock.json'; // conservé en secours, voir plus bas
 
-function dateDuJourISO() {
+export function dateDuJourISO() {
     const aujourdhui = new Date();
     return aujourdhui.toISOString().slice(0, 10);
 }

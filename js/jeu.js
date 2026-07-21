@@ -1,18 +1,105 @@
-import { proposerMot } from './donnees-jeu.js';
+// jeu.js — logique de la page jouer.html
+
+import { proposerMot, getMotDuJour, dateDuJourISO } from './donnees-jeu.js';
 
 const formulaire = document.getElementById('formulaire-essai');
 const champMot = document.getElementById('champ-mot');
 const message = document.getElementById('message-jeu');
 const listeEssais = document.getElementById('liste-essais');
 
-const essaisJoues = new Map();
+const PREFIXE_STOCKAGE = 'mdj-essais-';
+const cleStockageAujourdhui = PREFIXE_STOCKAGE + dateDuJourISO();
+
+const essaisJoues = new Map(); // mot -> résultat
 let partieTrouvee = false;
+
+// ---------- Sauvegarde locale (survit à un rafraîchissement de page) ----------
+
+// Empreinte simple du contenu du mot du jour : permet de détecter si les
+// essais sauvegardés correspondent à un mot du jour différent de celui
+// actuellement chargé (ex. bascule du mock vers le vrai fichier du jour),
+// et dans ce cas d'ignorer la sauvegarde périmée plutôt que de la restaurer.
+function signatureDuJour(donneesMotDuJour) {
+    const chaine = JSON.stringify(donneesMotDuJour);
+    let hash = 0;
+    for (let i = 0; i < chaine.length; i++) {
+        hash = (hash * 31 + chaine.charCodeAt(i)) | 0;
+    }
+    return hash;
+}
+
+async function sauvegarderEssais() {
+    try {
+        const motDuJourActuel = await getMotDuJour();
+        localStorage.setItem(cleStockageAujourdhui, JSON.stringify({
+            signature: signatureDuJour(motDuJourActuel),
+            essais: [...essaisJoues.values()],
+        }));
+    } catch (erreur) {
+        // navigation privée, quota plein, etc. : on continue sans bloquer le jeu
+        console.warn("Sauvegarde locale impossible :", erreur);
+    }
+}
+
+function nettoyerAnciennesSauvegardes() {
+    try {
+        Object.keys(localStorage)
+            .filter((cle) => cle.startsWith(PREFIXE_STOCKAGE) && cle !== cleStockageAujourdhui)
+            .forEach((cle) => localStorage.removeItem(cle));
+    } catch {
+        // rien de grave si on ne peut pas nettoyer
+    }
+}
+
+async function restaurerEssais() {
+    let sauvegarde;
+    try {
+        sauvegarde = localStorage.getItem(cleStockageAujourdhui);
+    } catch {
+        return;
+    }
+    if (!sauvegarde) return;
+
+    let donneesSauvegardees;
+    try {
+        donneesSauvegardees = JSON.parse(sauvegarde);
+    } catch (erreur) {
+        console.warn("Sauvegarde locale illisible, on repart de zéro :", erreur);
+        return;
+    }
+
+    try {
+        const motDuJourActuel = await getMotDuJour();
+        if (signatureDuJour(motDuJourActuel) !== donneesSauvegardees.signature) {
+            // Le mot du jour a changé depuis cette sauvegarde : elle est périmée.
+            try { localStorage.removeItem(cleStockageAujourdhui); } catch { /* tant pis */ }
+            return;
+        }
+    } catch (erreur) {
+        console.warn("Vérification de la sauvegarde impossible, on repart de zéro :", erreur);
+        return;
+    }
+
+    donneesSauvegardees.essais.forEach((resultat) => essaisJoues.set(resultat.mot, resultat));
+    reafficherEssais();
+
+    const resultatTrouve = [...essaisJoues.values()].find((resultat) => resultat.trouve);
+    if (resultatTrouve) {
+        partieTrouvee = true;
+        const nbEssais = essaisJoues.size;
+        message.textContent = `Bravo, vous avez trouvé "${resultatTrouve.mot}" en ${nbEssais} essai${nbEssais > 1 ? 's' : ''} !`;
+        message.className = 'message-jeu trouve';
+        champMot.disabled = true;
+    }
+}
+
+// ---------- Affichage ----------
 
 function categorie(rang, trouve) {
     if (trouve) return 'trouve';
     if (rang !== null && rang <= 10) return 'chaud';
     if (rang !== null && rang <= 100) return 'tiede';
-    return null;
+    return null; // froid = style par défaut, pas de modificateur de classe
 }
 
 function pourcentage(rang, trouve) {
@@ -36,7 +123,7 @@ function creerLigne({ mot, rang, trouve }) {
 
     const spanRang = document.createElement('span');
     spanRang.className = 'demo-rang';
-    spanRang.textContent = trouve ? 'Gagné!' : (rang !== null ? `${rang}ᵉ` : '—');
+    spanRang.textContent = trouve ? '🏆' : (rang !== null ? `${rang}ᵉ` : '—');
 
     const spanMot = document.createElement('span');
     spanMot.className = 'demo-mot';
@@ -87,6 +174,7 @@ formulaire.addEventListener('submit', async (evenement) => {
         const resultat = await proposerMot(mot);
         essaisJoues.set(mot, resultat);
         reafficherEssais();
+        sauvegarderEssais();
         champMot.value = '';
 
         if (resultat.trouve) {
@@ -107,3 +195,6 @@ formulaire.addEventListener('submit', async (evenement) => {
 
     champMot.focus();
 });
+
+nettoyerAnciennesSauvegardes();
+restaurerEssais();
