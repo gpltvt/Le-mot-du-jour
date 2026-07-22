@@ -1,3 +1,8 @@
+/* ==========================================================================
+   LE MOT DU JOUR — feuille de style
+   Palette : ivoire chaud, vert forêt profond, filet or
+   ========================================================================== */
+
 :root {
     --ivoire:        #f7f2e6;
     --ivoire-carte:  #fbf8f0;
@@ -34,7 +39,7 @@ body {
     flex-direction: column;
 }
 
-/*En-tête*/
+/* ---------- En-tête ---------- */
 .entete {
     position: relative;
     z-index: 10;
@@ -89,7 +94,7 @@ body {
     margin-top: 0.6rem;
 }
 
-/*Démo : aperçu d'une partie*/
+/* ---------- Démo : aperçu d'une partie ---------- */
 .demo {
     position: relative;
     z-index: 10;
@@ -206,7 +211,7 @@ body {
     }
 }
 
-/*Pages secondaires*/
+/* ---------- Pages secondaires (règles, etc.) ---------- */
 .fil-ariane {
     font-family: var(--police-texte);
     font-size: 0.7rem;
@@ -280,6 +285,34 @@ body {
     opacity: 0.85;
 }
 
+.liste-mentions {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    margin-top: 1.6rem;
+}
+
+.liste-mentions h2 {
+    font-family: var(--police-titre);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--vert-fonce);
+    margin-bottom: 0.3rem;
+}
+
+.liste-mentions p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+.contenu-regles > p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
 .regle-exemple {
     text-align: center;
 }
@@ -308,7 +341,7 @@ body {
     animation: none;
 }
 
-/*Page de jeu*/
+/* ---------- Page de jeu ---------- */
 .contenu-jeu {
     flex: 1;
     width: 100%;
@@ -400,7 +433,7 @@ body {
     padding: 0.6rem 0;
 }
 
-/*Page archives*/
+/* ---------- Page archives ---------- */
 .contenu-archives {
     flex: 1;
     width: 100%;
@@ -470,7 +503,7 @@ body {
     padding: 2rem 0;
 }
 
-/*Scène principale*/
+/* ---------- Scène principale ---------- */
 .scene {
     position: relative;
     flex: 1;
@@ -508,7 +541,7 @@ body {
     max-width: 980px;
 }
 
-/*Cartes*/
+/* ---------- Cartes ---------- */
 .carte {
     flex: 1;
     text-decoration: none;
@@ -585,6 +618,7 @@ body {
     box-shadow: 0 0 8px rgba(217, 185, 105, 0.6);
 }
 
+/* La carte centrale porte davantage de poids visuel */
 .carte--principale {
     flex: 1.15;
 }
@@ -614,7 +648,7 @@ body {
     .carte-cadre, .carte--principale .carte-cadre { min-height: 190px; }
 }
 
-/*Pied de page*/
+/* ---------- Pied de page ---------- */
 .pied {
     position: relative;
     z-index: 10;
@@ -640,7 +674,7 @@ body {
     border-color: var(--or);
 }
 
-/*Accessibilité : réduction de mouvement*/
+/* ---------- Accessibilité : réduction de mouvement ---------- */
 @media (prefers-reduced-motion: reduce) {
     .halo,
     .carte--principale .carte-gemme {
