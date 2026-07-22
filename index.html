@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="js/theme.js"></script>
 </head>
-
 <body>
+
     <div class="page">
+
+        <button id="bouton-theme" class="bouton-theme" aria-label="Passer au thème sombre">🌙</button>
 
         <header class="entete">
             <p class="entete-signature">Made by G. Plaetevoet</p>
             <h1>Le mot du jour</h1>
             <div class="entete-separateur" aria-hidden="true"></div>
-            <p class="entete-baseline">Un mot caché, une réponse par jour.</p>
+            <p class="entete-baseline">Un mot caché, une intuition à affiner, une réponse par jour.</p>
         </header>
 
         <section class="demo" aria-hidden="true">
@@ -52,7 +55,9 @@
         <main class="scene">
 
             <div class="halo" aria-hidden="true"></div>
+
             <div class="rangee-cartes">
+
                 <a href="jouer.html" class="carte carte--action">
                     <div class="carte-cadre">
                         <span class="carte-gemme"></span>
@@ -60,6 +65,7 @@
                         <p class="carte-note">Mot du <span id="date-du-jour">--/--/--</span></p>
                     </div>
                 </a>
+
                 <a href="regles.html" class="carte carte--action carte--principale">
                     <div class="carte-cadre">
                         <span class="carte-gemme"></span>
@@ -67,15 +73,17 @@
                         <p class="carte-note">Comprendre la mécanique</p>
                     </div>
                 </a>
+
                 <a href="archives.html" class="carte carte--action">
                     <div class="carte-cadre">
                         <span class="carte-gemme"></span>
                         <h2>Le mot<br>d'hier</h2>
-                        <p class="carte-note">Voir la solution d'hier</p>
+                        <p class="carte-note">Revoir la solution</p>
                     </div>
                 </a>
+
             </div>
-        
+
         </main>
 
         <footer class="pied">

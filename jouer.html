@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jouer une partie</title>
+    <title>Jouer — Le Mot du Jour</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="js/theme.js"></script>
 </head>
 <body>
 
     <div class="page">
+
+        <button id="bouton-theme" class="bouton-theme" aria-label="Passer au thème sombre">🌙</button>
 
         <header class="entete entete--secondaire">
             <p class="fil-ariane"><a href="index.html">Accueil</a> / Jouer</p>
@@ -20,6 +23,7 @@
         </header>
 
         <main class="contenu-jeu">
+
             <form id="formulaire-essai" class="formulaire-essai" autocomplete="off">
                 <input
                     type="text"
@@ -31,14 +35,17 @@
                 />
                 <button type="submit">Essayer</button>
             </form>
+
             <p id="message-jeu" class="message-jeu" aria-live="polite"></p>
+
             <div id="liste-essais" class="demo-carte liste-essais"></div>
+
         </main>
 
         <footer class="pied">
             <a href="index.html">Accueil</a>
         </footer>
-        
+
     </div>
 
     <script type="module" src="js/jeu.js"></script>
